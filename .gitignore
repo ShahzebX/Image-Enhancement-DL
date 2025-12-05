@@ -1,0 +1,51 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Gradio cache
+.gradio/
+
+# Large model files (can be re-downloaded)
+colorization_release_v2.caffemodel
+
+# Test images and outputs
+b&w.jpg
+result.jpg
+*.jpg
+*.png
+*.jpeg
+
+# Notebooks (testing/training)
+pretrained.ipynb
+MIRNet.ipynb
+
+# Alternative implementations
+enhanced_app.py
+mirnet_model.py
+requirements_enhanced.txt
+
+# Flask folders (if not used)
+static/
+templates/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
