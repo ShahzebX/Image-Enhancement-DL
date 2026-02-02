@@ -49,3 +49,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Project-specific local artifacts and backups
+static/styles.css.backup
+models/
+*.caffemodel
+*.backup
