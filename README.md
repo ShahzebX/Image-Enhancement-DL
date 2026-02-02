@@ -33,8 +33,8 @@ This repository ships a unified inference pipeline exposed via a Flask app.
 ### Model inference
 
 - **Colorization model:** OpenCV DNN loads the pre-trained Caffe model from Zhang et al. (ECCV 2016) and predicts `ab` chroma channels conditioned on the `L` channel.
-- **Enhancement model (final in this repo):** a **MIRNet-inspired** lightweight enhancer implemented with classical CV operations (`CLAHE + denoise + gamma + mild sharpening`).
-	- A TensorFlow-based deep model hook exists as a *placeholder* in `mirnet_model.py`, but the default path in the Flask app uses the classical enhancer (`use_deep_learning=False`).
+- **Enhancement model:** A **MIRNet-inspired** lightweight enhancer implemented with classical CV operations (`CLAHE + denoise + gamma + mild sharpening`) for efficiency.
+	- A TensorFlow-based deep model hook exists as a *placeholder* in `mirnet_model.py`, but the default path in the Flask app uses the classical enhancer (`use_deep_learning=False`) to ensure near real-time performance on CPU.
 
 ### Postprocessing
 
@@ -108,7 +108,6 @@ Expected behavior in practice:
 - **NumPy**
 - **Flask** (unified web UI + API)
 - **Pillow (PIL)** (image I/O in the Flask app)
-- **Gradio** (optional standalone UI for colorization)
 
 Model architectures used:
 
@@ -119,8 +118,7 @@ Model architectures used:
 
 ## Repository Structure
 
-- `enhanced_app.py` — Unified Flask server: `/process` endpoint for colorization or enhancement.
-- `app.py` — Standalone Gradio app for colorization only.
+- `app.py` — Unified Flask server: `/process` endpoint for colorization or enhancement (formerly `enhanced_app.py`).
 - `mirnet_model.py` — Low-light enhancer implementation (classical default) + optional deep-model placeholder.
 - `test_color.py` — Minimal script that runs colorization and writes `result.jpg`.
 - `templates/index.html` — Frontend page for the Flask app.
@@ -137,20 +135,10 @@ Model architectures used:
 
 Create and activate a virtual environment, then install dependencies.
 
-For the unified Flask app:
-
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements_enhanced.txt
-```
-
-For the standalone Gradio colorizer:
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
 ```
 
 ### 2) Ensure model files are present
@@ -169,21 +157,15 @@ Upstream sources:
 
 ### 3) Run inference
 
-Unified web app (recommended):
-
-```bash
-python enhanced_app.py
-```
-
-Open `http://localhost:5000`, choose a mode, upload an image, and download the result.
-
-Standalone Gradio colorization UI:
+Start the Flask web app:
 
 ```bash
 python app.py
 ```
 
-Scripted run (writes `result.jpg`):
+Open `http://localhost:5000`, choose a mode, upload an image, and download the result.
+
+Or run the minimal test script (writes `result.jpg`):
 
 ```bash
 python test_color.py

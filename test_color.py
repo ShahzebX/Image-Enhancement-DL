@@ -2,9 +2,9 @@ import cv2 as cv
 import numpy as np
 
 # Load models
-prototxt = "colorization_deploy_v2.prototxt"
-model = "colorization_release_v2.caffemodel"
-pts = "pts_in_hull.npy"
+prototxt = "models/colorization_deploy_v2.prototxt"
+model = "models/colorization_release_v2.caffemodel"
+pts = "models/pts_in_hull.npy"
 
 print("Loading models...")
 net = cv.dnn.readNetFromCaffe(prototxt, model)
